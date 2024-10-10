@@ -113,22 +113,24 @@ console.log(charactersNames);
   Dovrai accedere alla proprietà "name" di ogni oggetto in esso contenuto, e inserirla nell'array "charactersNames" creato precedentemente.
   Come risultato dovresti ottenere qualcosa di simile: ["Luke Skywalker", "C-3PO", "R2-D2", etc..]
 */
-/*
+
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  charactersNames.push(starWarsCharacters[i].name);
+  const character = starWarsCharacters[i]; // serve a farmi capire il passaggio di allocazione di valori al nuovo array.
+
+  charactersNames.push(character[i].name);
 }
 console.log(charactersNames);
-*/
+
 /* ESERCIZIO 3
   Seguendo i passaggi precedenti crea un nuovo array chiamato "femaleCharacters" e inserisci al suo interno tutti gli oggetti femminili.
 */
 
 // così mettiamo nell' array solo e tutti i nomi femminili
 
-let femaleCharacters = [];
+const femaleCharacters = [];
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  if (starWarsCharacters[i].gender === "female") {
-    femaleCharacters.push(starWarsCharacters[i]);
+  if (character[i].gender === "female") {
+    femaleCharacters.push(character[i]);
   }
 }
 console.log(femaleCharacters);
@@ -158,7 +160,7 @@ console.log(eyeColor);
 //
 
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  let character = starWarsCharacters[i];
+  const character = starWarsCharacters[i];
 
   switch (character.eye_color) {
     case "blue":
@@ -180,22 +182,31 @@ for (let i = 0; i < starWarsCharacters.length; i++) {
     case "blue-gray":
       eyeColor["blue-gray"].push(character);
       break;
-
-    default:
-      console.log("non hanno gli occhi");
   }
 }
 console.log(eyeColor);
+
+// svolto senza switch/case .
+
+for (let i = 0; i < starWarsCharacters.length; i++) {
+  const character = starWarsCharacters[i];
+
+  eyeColor[character.eye_color].push(character);
+}
 
 /* ESERCIZIO 6
   Usa un while loop per calcolare la massa totale dell'equipaggio. Salvala in una variabile chiamata "crewMass".
 */
 
-let i = 0;
+// il WHILE viene utilizato quando non conosco il limite di operazioni ciclo da svolgere.
+
 let crewMass = 0;
+let i = 0;
 
 while (i < starWarsCharacters.length) {
-  crewMass += starWarsCharacters[i].mass;
+  const character = starWarsCharacters[i];
+
+  crewMass += character.mass;
   i++;
 }
 console.log(crewMass);
@@ -219,6 +230,7 @@ if (crewMass < 500) {
 } else if (crewMass < 1000 && crewMass > 900) {
   console.log("Critical Load: Over 900");
 } else if (crewMass > 1000) {
+  // oppure senza questo else perchè tanto è sottintesa come condizione
   console.log("DANGER! OVERLOAD ALERT: escape from ship now!");
 }
 
@@ -229,27 +241,48 @@ if (crewMass < 500) {
 */
 
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  if (starWarsCharacters[i].gender === "n/a") {
-    starWarsCharacters[i].gender = "robot";
+  const character = starWarsCharacters[i];
+
+  if (character.gender === "n/a") {
+    character.gender = "robot";
   }
-  console.log("Ciclo", i, "Genere:", starWarsCharacters[i].gender);
 }
+console.log(starWarsCharacters);
+
+// oppure -----
+
+//for (let i = 0; i < starWarsCharacters.length; i++) {
+//const character = structeredClone(starWarsCharacters[i]);
+
+//if (character.gender === "n/a") {
+//  character.gender = "robot";
+//}
+//newstarwarscharacters
+//}
+///console.log(starWarsCharacters);
 
 /* --EXTRA-- ESERCIZIO 9
   Utilizzando gli elementi presenti nell'array "femaleCharacters" rimuovi dall'array "charactersNames" le stringhe corrispondenti a personaggi con lo stesso nome.
   Una volta fatto crea un console.log per controllare la proprietà length di "charactersNames" prima e dopo l'operazione.
 */
 
-//console.log(starWarsCharacters.length);
-//for(let i = 0; i < femaleCharacters.length; i++){
-//for(let x = 0; x < starWarsCharacters.length; x++){
-//if(femaleCharacters[i].name === starWarsCharacters[x].name)  {
-//starWarsCharacters.splice(x, 1);
-//}
-//console.log(starWarsCharacters.length);
-//}
-//}
+for (let i = 0; i < starWarsCharacters.length; i++) {
+  const charName = charactersNames[i];
+
+  for (let j = 0; j < femaleCharacters.length; j++) {
+    const femObj = femaleCharacters[j];
+
+    if (charName === femObj.name) {
+      console.log("TROVATA CORRISPONDENZA!", i, charName);
+
+      charactersNames.splice(i, 1); //  (start:  i, deleteCount:  , number: )
+    }
+  }
+}
+console.log(charactersNames);
 
 /* --EXTRA-- ESERCIZIO 10
   Crea una funzionalità che selezioni un elemento casuale dall'array "starWarsCharacters" e ne stampi in console le proprietà in modo discorsivo (a tuo piacimento).
 */
+
+
