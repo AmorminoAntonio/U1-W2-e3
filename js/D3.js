@@ -115,9 +115,8 @@ console.log(charactersNames);
 */
 
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  const character = starWarsCharacters[i]; // serve a farmi capire il passaggio di allocazione di valori al nuovo array.
-
-  charactersNames.push(character[i].name);
+  // serve a farmi capire il passaggio di allocazione di valori al nuovo array.
+  charactersNames.push(starWarsCharacters[i].name);
 }
 console.log(charactersNames);
 
@@ -128,6 +127,7 @@ console.log(charactersNames);
 // così mettiamo nell' array solo e tutti i nomi femminili
 
 const femaleCharacters = [];
+const character = starWarsCharacters;
 for (let i = 0; i < starWarsCharacters.length; i++) {
   if (character[i].gender === "female") {
     femaleCharacters.push(character[i]);
@@ -285,4 +285,6 @@ console.log(charactersNames);
   Crea una funzionalità che selezioni un elemento casuale dall'array "starWarsCharacters" e ne stampi in console le proprietà in modo discorsivo (a tuo piacimento).
 */
 
+const randomIndex = Math.floor(Math.random() * starWarsCharacters.length);
 
+console.log("RANDOM CHARACTER", starWarsCharacters[randomIndex]);
